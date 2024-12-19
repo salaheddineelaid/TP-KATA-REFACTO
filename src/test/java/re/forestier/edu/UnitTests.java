@@ -139,4 +139,112 @@ public class UnitTests {
            assertTrue(player.inventory.contains(lightItem));
        }
 
+
+    @Test
+    @DisplayName("Combining items and leveling up works as expected")
+    void testItemAndLevelU() {
+        Player player = new Adventurer("Florian", "Grognak", 100, new ArrayList<>());
+        Item lightItem = new Item("Light Item", "A very light item", 1.0, 50);
+        player.addItem(lightItem);
+
+        player.addXp(75); // Level up
+
+        assertThat(player.retrieveLevel(), is(4));
+        assertTrue(player.inventory.contains(lightItem));
+    }
+
+ @Test
+ @DisplayName("Combining items and leveling up works as expected")
+ void testItemAndLevel() {
+     Player player = new Adventurer("Florian", "Grognak", 100, new ArrayList<>());                          //--------------
+     Item lightItem = new Item("Light Item", "A very light item", 1.0, 50);
+     player.addItem(lightItem);
+
+     player.addXp(120); // Level up
+
+     assertThat(player.retrieveLevel(), is(5));
+     assertTrue(player.inventory.contains(lightItem));
+ }
+
+ @Test
+ @DisplayName("Combining items and leveling up works as expected")
+ void testItemAndLeve() {
+     Player player = new Adventurer("Florian", "Grognak", 100, new ArrayList<>());
+     Item lightItem = new Item("Light Item", "A very light item", 1.0, 50);
+     player.addItem(lightItem);
+
+          player.addXp(8);
+
+     assertThat(player.retrieveLevel(), is(1));
+     assertTrue(player.inventory.contains(lightItem));
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

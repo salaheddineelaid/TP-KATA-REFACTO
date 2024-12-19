@@ -73,6 +73,14 @@ public abstract  class Player {
         inventory.add(item);
         currentWeight += item.getWeight();
     }
+    public Boolean sell(Item item) throws IllegalArgumentException {
+        if (inventory.contains(item)){
+            inventory.remove(item);
+            addMoney(item.getValue());
+            return true;
+        }
+        return false;
+    }
     public void addMoney(int amount) {
         var value = Integer.valueOf(amount);
         money = money + (value != null ? value : 0);
