@@ -1,7 +1,12 @@
+package re.forestier.edu.rpg.player_manager;
 
+import re.forestier.edu.rpg.itm_manager.Item;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Archer extends Player {
-    public Archer(String playerName, String avatarName, int money, ArrayList<String> inventory) {
+    public Archer(String playerName, String avatarName, int money, ArrayList<Item> inventory) {
         super(playerName, avatarName, "ARCHER", money, inventory);
     }
 
@@ -43,15 +48,15 @@ public class Archer extends Player {
         }
         return abilities;
     }
-    
+
      @Override
     protected void recoverHealth() {
-        if (currentHealthPoints < healthPoints / 2) {
-            currentHealthPoints += 1; // Basic recovery
+        if (currenthealthpoints < healthpoints / 2) {
+            currenthealthpoints += 1; // Basic recovery
 
             // Additional recovery if the Archer has a Magic Bow
             if (inventory.contains("Magic Bow")) {
-                currentHealthPoints += currentHealthPoints / 8 - 1;
+                currenthealthpoints += currenthealthpoints / 8 - 1;
             }
         }
     }

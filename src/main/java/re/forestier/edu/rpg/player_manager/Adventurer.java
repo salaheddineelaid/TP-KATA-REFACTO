@@ -1,10 +1,12 @@
-package re.forestier.edu.rpg;
+package re.forestier.edu.rpg.player_manager;
+
+import re.forestier.edu.rpg.itm_manager.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Adventurer extends Player {
-    public Adventurer(String playerName, String avatarName, int money, ArrayList<String> inventory) {
+    public Adventurer(String playerName, String avatarName, int money, ArrayList<Item> inventory) {
         super(playerName, avatarName, "ADVENTURER", money, inventory);
     }
 
@@ -52,11 +54,11 @@ public class Adventurer extends Player {
         return abilities;
     }
     @Override
-    protected void recoverHealth() {
-        if (currentHealthPoints < healthPoints / 2) {
-            currentHealthPoints += 2; // Adventurer's recovery
+    public void recoverHealth() {
+        if (currenthealthpoints < healthpoints / 2) {
+            currenthealthpoints += 2; // Adventurer's recovery
             if (retrieveLevel() < 3) {
-                currentHealthPoints -= 1; // Penalty for low level
+                currenthealthpoints -= 1; // Penalty for low level
             }
         }
     }

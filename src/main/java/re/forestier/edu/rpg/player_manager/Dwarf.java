@@ -1,9 +1,11 @@
-package re.forestier.edu.rpg;
+package re.forestier.edu.rpg.player_manager;
+
+import re.forestier.edu.rpg.itm_manager.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 public class Dwarf extends Player {
-    public Dwarf(String playerName, String avatarName, int money, ArrayList<String> inventory) {
+    public Dwarf(String playerName, String avatarName, int money, ArrayList<Item> inventory) {
         super(playerName, avatarName, "DWARF", money, inventory);
     }
 
@@ -52,11 +54,11 @@ public class Dwarf extends Player {
     }
     @Override
     protected void recoverHealth() {
-        if (currentHealthPoints < healthPoints / 2) {
+        if (currenthealthpoints < healthpoints / 2) {
             if (inventory.contains("Holy Elixir")) {
-                currentHealthPoints += 1; // Recover with Holy Elixir
+                currenthealthpoints += 1; // Recover with Holy Elixir
             }
-            currentHealthPoints += 1; // Basic recovery for Dwarf
+            currenthealthpoints += 1; // Basic recovery for Dwarf
         }
     }
 
