@@ -54,7 +54,7 @@ public class Adventurer extends Player {
         return abilities;
     }
     @Override
-    public void recoverHealth() {
+    protected void recoverHealth() {
         if (currenthealthpoints < healthpoints / 2) {
             currenthealthpoints += 2; // Adventurer's recovery
             if (retrieveLevel() < 3) {
