@@ -123,7 +123,7 @@ public class UnitTests {
            player.addItem(specialItem);
            assertTrue(player.inventory.contains(specialItem));
            // Assuming special logic increases abilities
-         //  assertTrue(player.abilities.get("INT") > 1);
+         //  assertTrue(player.abilities.get("INT") > 1);   ---
        }
 
        @Test
