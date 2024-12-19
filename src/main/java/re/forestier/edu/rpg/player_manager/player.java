@@ -12,7 +12,7 @@ public class player {
     private Float __real_money__;
 
 
-    public int level;
+    public int leve/*  */l;
     public int healthpoints;
     public int currenthealthpoints;
     public int xp;
@@ -20,22 +20,17 @@ public class player {
 
     public HashMap<String, Integer> abilities;
     public ArrayList<String> inventory;
-    public player(String playerName, String avatar_name, String avatarClass, int money, ArrayList<String> inventory) {
-        if (!avatarClass.equals("ARCHER") && !avatarClass.equals("ADVENTURER") && !avatarClass.equals("DWARF") ) {
-            return;
-        }
-
+     public Player(String playerName, String avatarName, String avatarClass, int money, ArrayList<String> inventory) {
         this.playerName = playerName;
-        Avatar_name = avatar_name;
-        AvatarClass = avatarClass;
-        this.money = Integer.valueOf(money);
+        this.avatarName = avatarName;
+        this.avatarClass = avatarClass;
+        this.money = money;
         this.inventory = inventory;
-        this.abilities = UpdatePlayer.abilitiesPerTypeAndLevel().get(AvatarClass).get(1);
+        this.level = 1; // Start at level 1
+        this.xp = 0; // Start with 0 XP
+        this.abilities = initializeAbilities();
     }
 
-    public String getAvatarClass () {
-        return AvatarClass;
-    }
 
     public void removeMoney(int amount) throws IllegalArgumentException {
         if (money - amount < 0) {
@@ -48,40 +43,65 @@ public class player {
         var value = Integer.valueOf(amount);
         money = money + (value != null ? value : 0);
     }
-    public int retrieveLevel() {
-        // (lvl-1) * 10 + round((lvl * xplvl-1)/4)
-        HashMap<Integer, Integer> levels = new HashMap<>();
-        levels.put(2,10); // 1*10 + ((2*0)/4)
-        levels.put(3,27); // 2*10 + ((3*10)/4)
-        levels.put(4,57); // 3*10 + ((4*27)/4)
-        levels.put(5,111); // 4*10 + ((5*57)/4)
-        //TODO : ajouter les prochains niveaux
+    
+    protected abstract HashMap<String, Integer> initializeAbilities();
 
-        if (xp < levels.get(2)) {
-            return 1;
+    public void addXp(int xp) {
+        this.xp += xp;
+        // Level up logic
+        int newLevel = retrieveLevel();
+        if (newLevel > level) {
+            level = newLevel;
+            gainAbility();
+            gainItem();
         }
-        else if (xp < levels.get(3)) {return 2;
-        }
-        if (xp < levels.get(4)) {
-            return 3;
-        }
-        if (xp < levels.get(5)) return 4;
-        return 5;
     }
 
+    private void gainItem() {
+        String[] objectList = {
+            "Lookout Ring", "Scroll of Stupidity", "Draupnir",
+            "Magic Charm", "Rune Staff of Curse", "Combat Edge", "Holy Elixir"
+        };
+        Random random = new Random();
+        inventory.add(objectList[random.nextInt(objectList.length)]);
+    }
+
+    protected void gainAbility() {
+        HashMap<String, Integer> newAbilities = initializeAbilitiesForLevel(level);
+        abilities.forEach((ability, value) -> abilities.put(ability, abilities.get(ability) + newAbilities.getOrDefault(ability, 0)));
+    }
+
+    protected abstract HashMap<String, Integer> initializeAbilitiesForLevel(int level);
+
+    public int retrieveLevel() {
+        // Level calculation logic based on xp
+        if (xp < 10) return 1;
+        else if (xp < 27) return 2;
+        else if (xp < 57) return 3;
+        else if (xp < 111) return 4;
+        return 5;
+    }
     public int getXp() {
         return this.xp;
     }
 
-    /*
-    Ингредиенты:
-        Для теста:
+    public void majFinDeTour() {
+        if (currentHealthPoints <= 0) {
+            System.out.println("Le joueur est KO !");
+            return;
+        }
 
-            250 г муки
-            125 г сливочного масла (холодное)
-            70 г сахара
-            1 яйцо
-            1 щепотка соли
-     */
+        // Call the subclass-specific recovery method
+        recoverHealth();
+
+        // Cap current health points to maximum health points
+        if (currentHealthPoints > healthPoints) {
+            currentHealthPoints = healthPoints;
+        }
+    }
+
+    protected abstract void recoverHealth();
+
+    
 
 }
